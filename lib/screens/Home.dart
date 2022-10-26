@@ -12,13 +12,57 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-      ),
-      body: const Center(
-        child: Text("Home"),
-      ),
+      body: SafeArea(
+          child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Welcome to HorsesApp",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: Colors.grey,
+                  elevation: 5,
+                  primary: const Color(0xFF2596be),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/register');
+                },
+                child: const Text("Register",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 150.0,
+              height: 50.0,
+
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: Colors.grey,
+                  elevation: 5,
+                  primary: const Color(0xFF2596be),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: const Text("Login",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }

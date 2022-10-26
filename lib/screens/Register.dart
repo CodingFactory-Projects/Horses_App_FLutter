@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -10,8 +11,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
-  void test(){
+  void test() {
     setState(() {
       print("test");
     });
@@ -20,11 +20,36 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register"),
-      ),
-      body: const Center(
-        child: Text("Register"),
+      appBar: AppBar(),
+      body: SafeArea(
+        child: Center(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                SizedBox(
+                  width: 300,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Username',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Username',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+        ),
       ),
     );
   }

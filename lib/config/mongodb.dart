@@ -10,7 +10,7 @@ class MongoDatabase {
     var collectionUsers = db.collection(COLLECTION_USERS);
     var collectionHorses = db.collection(COLLECTION_HORSES);
 
-    // await collection.insertOne({
+    // await collectionUsers.insertOne({
     //   'email': 'admin@admin.fr',
     //   'username': 'admin',
     //   'password': 'admin',
