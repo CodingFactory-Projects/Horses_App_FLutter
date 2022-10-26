@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Nav.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -16,6 +18,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text("Home"),
       ),
+      bottomNavigationBar: const NavBar(),
       body: const Center(
         child: Text("Home"),
       ),
