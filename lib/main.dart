@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/navbar.dart';
 
+import 'screens/Home.dart';
+import 'screens/Login.dart';
+import 'screens/Register.dart';
+
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
@@ -42,6 +46,19 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: const NavBar(),
       body: Container(
       ),
+    );
+  }
+      title: 'Flutter Demo',
+      initialRoute: '/',
+      routes: {
+        '/register': (context) => const Register(),
+        '/login': (context) => const Login(),
+
+      },
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const Home(),
     );
   }
 }
