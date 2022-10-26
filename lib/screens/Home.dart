@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+        automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: const NavBar(),
       body: const Center(
