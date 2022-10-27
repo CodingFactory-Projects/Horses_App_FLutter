@@ -16,6 +16,7 @@ class RegisterModel {
     required this.password,
     required this.photo,
     required this.isLogged,
+    this.age,
   });
 
   String username;
@@ -23,6 +24,7 @@ class RegisterModel {
   String password;
   String photo;
   bool isLogged;
+  int? age;
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
         username: json["username"],
@@ -30,6 +32,7 @@ class RegisterModel {
         password: json["password"],
         photo: json["image"],
         isLogged: json["isLogged"],
+        age: json["age"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +40,7 @@ class RegisterModel {
         "email": email,
         "password": password,
         "image": photo,
+        "isLogged": isLogged,
+        "age": age,
       };
 }

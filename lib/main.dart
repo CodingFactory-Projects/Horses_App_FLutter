@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:horses_app/class/RegisterModel.dart';
 import 'package:horses_app/config/mongodb.dart';
+import 'package:horses_app/screens/Hall.dart';
 
 import 'screens/Home.dart';
 import 'screens/Login.dart';
@@ -36,13 +38,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: {
-        '/register': (context) => const Register(),
-        '/login': (context) => const Login(),
+        '/register': (context) => Register(),
+        '/login': (context) => Login(),
+        '/hall': (context) => Hall(),
       },
       theme: ThemeData(
           primarySwatch: MaterialColor(0xFF2596be, colorCodes),
           scaffoldBackgroundColor: const Color(0xFFeeeee4)),
-      home: const Home(),
+      home: Home(),
     );
   }
 }

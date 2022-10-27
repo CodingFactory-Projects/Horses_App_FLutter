@@ -1,14 +1,13 @@
 // ignore_for_file: file_names, avoid_print, use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:horses_app/config/constants.dart';
 import 'package:horses_app/config/mongodb.dart';
-import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import 'package:horses_app/main.dart';
 
 import '../class/RegisterModel.dart';
 // import 'package:flutter/services.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  Register({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -27,6 +26,7 @@ class _RegisterState extends State<Register> {
   String email = '';
   String photo = '';
   bool isLogged = true;
+  int? age;
 
   @override
   Widget build(BuildContext context) {
@@ -107,15 +107,7 @@ class _RegisterState extends State<Register> {
                 onPressed: () {
                   insert();
 
-                  Navigator.pop(
-                      context,
-                      RegisterModel(
-                        username: username,
-                        password: password,
-                        email: email,
-                        photo: photo,
-                        isLogged: isLogged,
-                      ));
+                  Navigator.pushNamed(context, '/hall');
                 },
                 icon: const Icon(
                   Icons.save_alt_outlined,
@@ -136,8 +128,8 @@ class _RegisterState extends State<Register> {
         "users",
         RegisterModel(
           username: username,
-          email: email,
           password: password,
+          email: email,
           photo: photo,
           isLogged: isLogged,
         ));

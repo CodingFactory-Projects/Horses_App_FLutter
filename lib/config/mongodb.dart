@@ -7,7 +7,7 @@ import 'constants.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
-  static var db, userCollection;
+  static var db, userCollection, loggedUser;
 
   static connect() async {
     db = await Db.create(MONGO_URL);
@@ -17,6 +17,12 @@ class MongoDatabase {
 
   static insertUser(String Collection, Model) async {
     var userCollection = db.collection(Collection);
-    await userCollection.insert(Model.toJson());
+    await userCollection.insertOne(Model.toJson());
+  }
+
+  static Future<List<Map<String, dynamic>>> getData(String Collection) async{
+    var userCollection = db.collection(Collection);
+    final arrData = await userCollection.find().toList();
+    return arrData;
   }
 }
