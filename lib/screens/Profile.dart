@@ -19,9 +19,6 @@ class _ProfileState extends State<Profile> {
       3, (i) => TextEditingController()
   );
 
-  //List<String> list = <String>['Oui', 'Non',];
-  //String dropdownValue = 'Non';
-
   @override
   void initState() {
     super.initState();
@@ -33,9 +30,8 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Profile'),
+        title: const Text('Compte'),
       ),
-      bottomNavigationBar: const NavBar(),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -100,6 +96,7 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
+      bottomNavigationBar: const NavBar(),
     );
   }
 
