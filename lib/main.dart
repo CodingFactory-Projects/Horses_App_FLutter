@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:horses_app/config/mongodb.dart';
+import 'package:horses_app/screens/Profile.dart';
 
 import 'screens/Home.dart';
 import 'screens/Login.dart';
-import 'screens/Register.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'App',
-      initialRoute: "/",
+      initialRoute: '/',
       routes: {
         '/home': (context) => const Home(),
         '/login': (context) => const Login(),

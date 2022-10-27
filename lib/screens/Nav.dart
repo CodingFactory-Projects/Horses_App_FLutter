@@ -27,7 +27,7 @@ getPage() {
 }
 
 class _NavBarState extends State<NavBar> {
-  var routes =["/home", "/login"];
+  var routes = ['/home', '/login'];
   var page = const Home();
 
   void onTabTapped(int index) {

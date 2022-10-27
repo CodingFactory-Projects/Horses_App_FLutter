@@ -16,12 +16,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text('Home'),
         automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: const NavBar(),
       body: const Center(
-        child: Text("Home"),
+        child: Text('Home'),
       ),
     );
   }
