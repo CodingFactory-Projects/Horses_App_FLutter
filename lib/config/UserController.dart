@@ -15,6 +15,19 @@ class User{
 
   User( {required this.username, required this.mail, required this.password, required this.image, required this.phone,
      required  this.age, required this.link_ffe, this.id});
+
+   factory User.fromJson(Map<String, dynamic> json) => User(
+     id: json["_id"],
+     username: json["username"],
+     mail: json["email"],
+     password: json["password"],
+     image: json["profilePicture"],
+     phone: json["phoneNumber"],
+     age: json["age"],
+     link_ffe: json["ffeLink"],
+
+
+   );
 }
 
 class UserController{
@@ -40,7 +53,11 @@ class UserController{
 
   }
 
-  getUserByUsername(){
+
+  getUserById(id) async{
+    var Db = await MongoDatabase.getUserDb();
+    var res = await Db.findOne(where.eq("id", id));
+    User.fromJson(res);
 
   }
 
