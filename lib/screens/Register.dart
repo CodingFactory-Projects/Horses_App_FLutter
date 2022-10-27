@@ -1,7 +1,8 @@
 // ignore_for_file: file_names, avoid_print, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:horses_app/config/mongodb.dart';
-import 'package:horses_app/main.dart';
+import 'package:horses_app/screens/Hall.dart';
+import 'package:horses_app/screens/Login.dart';
 
 import '../class/RegisterModel.dart';
 // import 'package:flutter/services.dart';
@@ -16,10 +17,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  var usernameController = TextEditingController();
-  var passwordController = TextEditingController();
-  var emailController = TextEditingController();
-  var photoController = TextEditingController();
+  // var usernameController = TextEditingController();
+  // var passwordController = TextEditingController();
+  // var emailController = TextEditingController();
+  // var photoController = TextEditingController();
 
   String username = '';
   String password = '';
@@ -49,7 +50,7 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 width: 300,
                 child: TextField(
-                  controller: usernameController,
+                  // controller: usernameController,
                   onChanged: (value) {
                     username = value;
                   },
@@ -63,7 +64,7 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 width: 300,
                 child: TextField(
-                  controller: emailController,
+                  // controller: emailController,
                   onChanged: (value) {
                     email = value;
                   },
@@ -77,7 +78,7 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 width: 300,
                 child: TextField(
-                  controller: passwordController,
+                  // controller: passwordController,
                   onChanged: (value) {
                     password = value;
                   },
@@ -92,7 +93,7 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 width: 300,
                 child: TextField(
-                  controller: photoController,
+                  // controller: photoController,
                   onChanged: (value) {
                     photo = value;
                   },
@@ -104,10 +105,56 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 30),
               ElevatedButton.icon(
-                onPressed: () {
-                  insert();
+                onPressed: () async {
+                  var queryUser = await MongoDatabase.db
+                      .collection("users")
+                      .find({"username": username}).toList();
 
-                  Navigator.pushNamed(context, '/hall');
+                  var queryEmail = await MongoDatabase.db
+                      .collection("users")
+                      .find({"email": email}).toList();
+
+                  if (username == '' ||
+                      password == '' ||
+                      email == '' ||
+                      photo == '') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please fill all the fields'),
+                      ),
+                    );
+                  } else if (queryUser.isNotEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Username already exists"),
+                      ),
+                    );
+                  } else if (queryEmail.isNotEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Email already exists"),
+                      ),
+                    );
+                  } else {
+                    await MongoDatabase.db.collection("users").insertOne({
+                      "username": username,
+                      "password": password,
+                      "email": email,
+                      "photo": photo,
+                      "age": age,
+                    });
+                    await MongoDatabase.insertUser(RegisterModel(
+                        username: username,
+                        password: password,
+                        email: email,
+                        photo: photo,
+                        age: age));
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => Hall()),
+                        (Route<dynamic> route) => false);
+                    clearInputs();
+                  }
                 },
                 icon: const Icon(
                   Icons.save_alt_outlined,
@@ -116,6 +163,16 @@ class _RegisterState extends State<Register> {
                     margin: const EdgeInsets.all(15),
                     child: const Text("Create Account")),
               ),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () => {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Login()),
+                      (Route<dynamic> route) => false)
+                },
+                child: const Text("Register"),
+              ),
             ],
           ),
         ),
@@ -123,15 +180,10 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void insert() async {
-    await MongoDatabase.insertUser(
-        "users",
-        RegisterModel(
-          username: username,
-          password: password,
-          email: email,
-          photo: photo,
-          isLogged: isLogged,
-        ));
+  void clearInputs() {
+    username = '';
+    password = '';
+    email = '';
+    photo = '';
   }
 }

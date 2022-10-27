@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: MaterialColor(0xFF2596be, colorCodes),
           scaffoldBackgroundColor: const Color(0xFFeeeee4)),
-      home: Home(),
+      home: MongoDatabase.loggedUser != null ? Home() : Hall(),
     );
   }
 }
