@@ -1,26 +1,22 @@
+// ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables, avoid_print, non_constant_identifier_names
+
 import 'dart:developer';
+import 'package:horses_app/class/RegisterModel.dart';
+
 import 'constants.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
+  static var db, userCollection;
+
   static connect() async {
-    var db = await Db.create(MONGO_URL);
+    db = await Db.create(MONGO_URL);
     await db.open();
     inspect(db);
-    var collectionUsers = db.collection(COLLECTION_USERS);
-    var collectionHorses = db.collection(COLLECTION_HORSES);
+  }
 
-    // await collectionUsers.insertOne({
-    //   'email': 'admin@admin.fr',
-    //   'username': 'admin',
-    //   'password': 'admin',
-    // });
-
-    // await collection.update( where.eq('email', 'admin@admin.fr'), modify.set('password', 'admin3'));
-
-    // await collection.remove(where.eq('email', 'admin@admin.fr'));
-
-    // print(await collectionUsers.find().toList());
-    // print(await collectionHorses.find().toList());
+  static insertUser(String Collection, Model) async {
+    var userCollection = db.collection(Collection);
+    await userCollection.insert(Model.toJson());
   }
 }
