@@ -3,6 +3,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:mongo_dart/mongo_dart.dart';
 
 RegisterModel registerModelFromJson(String str) =>
     RegisterModel.fromJson(json.decode(str));
@@ -11,6 +12,7 @@ String registerModelToJson(RegisterModel data) => json.encode(data.toJson());
 
 class RegisterModel {
   RegisterModel({
+    required this.id,
     required this.username,
     required this.email,
     required this.password,
@@ -18,6 +20,7 @@ class RegisterModel {
     this.age,
   });
 
+  ObjectId id;
   String username;
   String email;
   String password;
@@ -25,6 +28,7 @@ class RegisterModel {
   int? age;
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
+        id: json["_id"],
         username: json["username"],
         email: json["email"],
         password: json["password"],
@@ -33,6 +37,7 @@ class RegisterModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "_id": id,
         "username": username,
         "email": email,
         "password": password,

@@ -8,7 +8,7 @@ import 'constants.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
-  static var db, userCollection, loggedUser = [];
+  static var db, userCollection, idUser;
 
   static connect() async {
     db = await Db.create(MONGO_URL);
@@ -16,13 +16,40 @@ class MongoDatabase {
     inspect(db);
   }
 
+  static Future<String> register(RegisterModel data) async {
+    try {
+      userCollection = db.collection('users');
+      var result = await userCollection.insert(data.toJson());
+      if (result.isSuccess) {
+        return "success";
+      } else {
+        return "error";
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
   static search(collection, value) {
     return where.eq(collection, value);
   }
 
-  static insertUser(Model) async {
-    loggedUser.add(Model.toJson());
-    print(loggedUser[0]["username"]);
+  static getUserId(userId) async {
+    idUser = userId;
+    // print(idUser);
+  }
+
+  // get user by is id
+  static Future<List> getUserById() async {
+    userCollection = db.collection('users');
+    var result = await userCollection.find(where.eq('_id', idUser)).toList();
+    // print(result);
+    return result;
+  }
+
+  static insertUserId(userId) async {
+    idUser = await userId;
+    print(idUser);
   }
 
   static Future<List<Map<String, dynamic>>> getData(String Collection) async {
@@ -31,21 +58,9 @@ class MongoDatabase {
     return arrData;
   }
 
-  static logout() async {
-    loggedUser = [];
-    print(loggedUser);
-    // print(loggedUser[0]["username"]);
-  }
-
-  static loginUser(String username, String password) {
-    var userCollection = db.collection("users");
-    var query = where.eq("username", username).eq("password", password);
-    userCollection.findOne(query).then((value) {
-      if (value != null) {
-        loggedUser.add(value);
-      } else {
-        print("Wrong username or password");
-      }
-    });
+  static Future<List<Map<String, dynamic>>> getDataById() async {
+    final data = await userCollection.find(where.gt("_id", idUser)).toList();
+    print(data);
+    return data;
   }
 }

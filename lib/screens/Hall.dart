@@ -23,21 +23,27 @@ class _HallState extends State<Hall> {
       ),
       body: SafeArea(
         child: FutureBuilder(
-            future: MongoDatabase.getData("users"),
+            future: MongoDatabase.getUserById(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else {
                 if (snapshot.hasData) {
+                  var data = snapshot.data;
+
                   return Column(
                     children: [
-                      Text(MongoDatabase.loggedUser[0]["username"].toString()),
+                      Text("Welcome ${data[0]['username']}"),
+                      SizedBox(
+                        height: 300,
+                        child: Card(child: Image.network(data[0]['photo'])),
+                      ),
                       ElevatedButton(
                           onPressed: () => {
-                                MongoDatabase.logout(),
-                                Navigator.pushNamed(context, "/login")
+                                MongoDatabase.getUserId(""),
+                                Navigator.pushNamed(context, "/login"),
                               },
-                          child: const Text("Logout"))
+                          child: const Text("Logout")),
                     ],
                   );
                 } else {
@@ -49,5 +55,9 @@ class _HallState extends State<Hall> {
             }),
       ),
     );
+  }
+
+  Widget buildList(RegisterModel data) {
+    return Text(data.username);
   }
 }

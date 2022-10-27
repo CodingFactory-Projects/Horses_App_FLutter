@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/Hall.dart';
 import 'package:horses_app/screens/Login.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
 
-import '../class/RegisterModel.dart';
 // import 'package:flutter/services.dart';
 
 class Register extends StatefulWidget {
@@ -123,6 +123,13 @@ class _RegisterState extends State<Register> {
                         content: Text('Please fill all the fields'),
                       ),
                     );
+                  } else if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(email)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please enter a valid email'),
+                      ),
+                    );
                   } else if (queryUser.isNotEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -136,19 +143,17 @@ class _RegisterState extends State<Register> {
                       ),
                     );
                   } else {
+                    var _id = M.ObjectId();
                     await MongoDatabase.db.collection("users").insertOne({
+                      "_id": _id,
                       "username": username,
                       "password": password,
                       "email": email,
                       "photo": photo,
                       "age": age,
                     });
-                    await MongoDatabase.insertUser(RegisterModel(
-                        username: username,
-                        password: password,
-                        email: email,
-                        photo: photo,
-                        age: age));
+                    MongoDatabase.insertUserId(_id);
+
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => Hall()),
