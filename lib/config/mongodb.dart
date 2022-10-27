@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'constants.dart';
+import 'constant.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
@@ -7,7 +7,24 @@ class MongoDatabase {
     var db = await Db.create(MONGO_URL);
     await db.open();
     inspect(db);
-    var collection = db.collection(COLLECTION_NAME);
+    var collection = db.collection(COLLECTION_HORSES);
+
+
+
   }
 
+  static getUserDb() async{
+    var db = await Db.create(MONGO_URL);
+    await db.open();
+    inspect(db);
+    var collection = db.collection(COLLECTION_USERS);
+
+    return collection;
+  }
+
+
+
+
+
 }
+

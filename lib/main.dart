@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horses_app/Component/Form/FormLogin.dart';
 import 'package:horses_app/config/mongodb.dart';
 
 Future<void> main() async{
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const LoginForm(title: 'title'),
     );
   }
 }
