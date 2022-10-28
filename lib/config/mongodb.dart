@@ -22,6 +22,15 @@ class MongoDatabase {
     return collection;
   }
 
+  static getEventDb() async{
+    var db = await Db.create(MONGO_URL);
+    await db.open();
+    inspect(db);
+    var collection = db.collection(COLLECTION_EVENTS);
+
+    return collection;
+  }
+
 
 
 

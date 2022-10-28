@@ -13,6 +13,7 @@ class User{
    int age;
    String link_ffe;
 
+
   User( {required this.username, required this.mail, required this.password, required this.image, required this.phone,
      required  this.age, required this.link_ffe, this.id});
 
@@ -54,11 +55,11 @@ class UserController{
   }
 
 
-  getUserById(id) async{
+  getUserByUsername(id) async{
     var Db = await MongoDatabase.getUserDb();
-    var res = await Db.findOne(where.eq("id", id));
-    User.fromJson(res);
-
+    var res = await Db.findOne(where.eq("username", id));
+   var user = User.fromJson(res);
+   print(user.username);
   }
 
 

@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:horses_app/config/UserController.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key, required this.title});
@@ -165,13 +164,13 @@ class _LoginFormState extends State<LoginForm> {
                           mail : mailController.value.text,
                           password: passwordController.value.text,
                           image: base64Image,
-                          phone:   'oui',
-                          age :   0,
+                          phone:'oui',
+                          age :0,
                           link_ffe:  '',
                         );
-                        userController.insertUser(user);
-                        ObjectId id = Obj'635a7a31f9a2503e1fa4e88f';
-                        userController.getUserById(id);
+                        // userController.insertUser(user);
+
+                        userController.getUserByUsername('fvdf');
                       }
                     },
                     color: Colors.redAccent,
