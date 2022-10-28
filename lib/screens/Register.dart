@@ -106,25 +106,17 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 30),
               ElevatedButton.icon(
                 onPressed: () async {
-                  var queryUser = await MongoDatabase.db
-                      .collection("users")
-                      .find({"username": username}).toList();
+                  var queryUser = await MongoDatabase.db.collection("users").find({"username": username}).toList();
 
-                  var queryEmail = await MongoDatabase.db
-                      .collection("users")
-                      .find({"email": email}).toList();
+                  var queryEmail = await MongoDatabase.db.collection("users").find({"email": email}).toList();
 
-                  if (username == '' ||
-                      password == '' ||
-                      email == '' ||
-                      photo == '') {
+                  if (username == '' || password == '' || email == '' || photo == '') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Please fill all the fields'),
                       ),
                     );
-                  } else if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      .hasMatch(email)) {
+                  } else if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Please enter a valid email'),
@@ -154,28 +146,19 @@ class _RegisterState extends State<Register> {
                     });
                     MongoDatabase.insertUserId(_id);
 
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => Hall()),
-                        (Route<dynamic> route) => false);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Hall()), (Route<dynamic> route) => false);
                     clearInputs();
                   }
                 },
                 icon: const Icon(
                   Icons.save_alt_outlined,
                 ),
-                label: Container(
-                    margin: const EdgeInsets.all(15),
-                    child: const Text("Create Account")),
+                label: Container(margin: const EdgeInsets.all(15), child: const Text("Create Account")),
               ),
               const SizedBox(height: 10),
               TextButton(
-                onPressed: () => {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Login()),
-                      (Route<dynamic> route) => false)
-                },
+                onPressed: () =>
+                    {Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false)},
                 child: const Text("Register"),
               ),
             ],

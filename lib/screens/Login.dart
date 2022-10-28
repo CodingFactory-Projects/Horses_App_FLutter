@@ -13,7 +13,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   String username = "";
+  String email = "";
   String password = "";
+  String newPassword = "";
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,8 @@ class _LoginState extends State<Login> {
                       .collection("users")
                       .findOne({"username": username, "password": password});
 
+                  print(query);
+
                   if (query == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -74,22 +78,13 @@ class _LoginState extends State<Login> {
                       ),
                     );
                   } else {
-                    MongoDatabase.getUserId(query['_id'].$oid);
+                    MongoDatabase.getUserId(query['_id']);
 
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => Hall()),
                         (Route<dynamic> route) => false);
                   }
-
-                  // MongoDatabase.loginUser(username, password),
-                  // if (MongoDatabase.loggedUser.isNotEmpty)
-                  //   {
-                  //     Navigator.pushAndRemoveUntil(
-                  //         context,
-                  //         MaterialPageRoute(builder: (context) => Hall()),
-                  //         (Route<dynamic> route) => false)
-                  //   }
                 },
                 child: const Text("Login"),
               ),
@@ -100,10 +95,122 @@ class _LoginState extends State<Login> {
                 },
                 child: const Text("Register"),
               ),
+              TextButton(
+                onPressed: () => _dialogBuilder(context),
+                child: const Text("I forgot my password"),
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Reset my password'),
+          content: SizedBox(
+            width: 100,
+            height: 350,
+            child: Column(
+              children: [
+                const Text(
+                    "In order to reset your password, please enter your email address and your username"),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                  child: TextField(
+                    onChanged: (value) {
+                      username = value;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Username',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                  child: TextField(
+                    onChanged: (value) {
+                      email = value;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                  child: TextField(
+                    onChanged: (value) {
+                      newPassword = value;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'New Password',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Confirm'),
+              onPressed: () async {
+                var query = await MongoDatabase.db
+                    .collection("users")
+                    .findOne({"username": username, "email": email});
+
+                print(query);
+
+                if (query == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Wrong username or email"),
+                    ),
+                  );
+                } else {
+                  MongoDatabase.db.collection("users").updateOne({
+                    "username": username
+                  }, {
+                    "\$set": {
+                      "password": newPassword,
+                    }
+                  });
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Password changed"),
+                    ),
+                  );
+
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
