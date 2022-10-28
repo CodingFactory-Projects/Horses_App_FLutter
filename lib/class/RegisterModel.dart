@@ -5,20 +5,20 @@
 import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart';
 
-RegisterModel registerModelFromJson(String str) =>
-    RegisterModel.fromJson(json.decode(str));
+RegisterModel registerModelFromJson(String str) => RegisterModel.fromJson(json.decode(str));
 
 String registerModelToJson(RegisterModel data) => json.encode(data.toJson());
 
 class RegisterModel {
-  RegisterModel({
-    required this.id,
-    required this.username,
-    required this.email,
-    required this.password,
-    required this.photo,
-    this.age,
-  });
+  RegisterModel(
+      {required this.id,
+      required this.username,
+      required this.email,
+      required this.password,
+      required this.photo,
+      this.age,
+      this.phoneNumber,
+      this.profilFFE});
 
   ObjectId id;
   String username;
@@ -26,6 +26,8 @@ class RegisterModel {
   String password;
   String photo;
   int? age;
+  String? phoneNumber;
+  String? profilFFE;
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
         id: json["_id"],
@@ -34,6 +36,8 @@ class RegisterModel {
         password: json["password"],
         photo: json["image"],
         age: json["age"],
+        phoneNumber: json["phoneNumber"],
+        profilFFE: json["profilFFE"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +47,7 @@ class RegisterModel {
         "password": password,
         "image": photo,
         "age": age,
+        "phoneNumber": phoneNumber,
+        "profilFFE": profilFFE,
       };
 }

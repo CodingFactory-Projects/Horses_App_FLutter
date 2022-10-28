@@ -26,8 +26,9 @@ class _RegisterState extends State<Register> {
   String password = '';
   String email = '';
   String photo = '';
-  bool isLogged = true;
   int? age;
+  String? phoneNumber;
+  String? profilFFE;
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +144,8 @@ class _RegisterState extends State<Register> {
                       "email": email,
                       "photo": photo,
                       "age": age,
+                      "phoneNumber": phoneNumber,
+                      "profilFFE": profilFFE,
                     });
                     MongoDatabase.insertUserId(_id);
 

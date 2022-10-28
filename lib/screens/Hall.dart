@@ -13,7 +13,6 @@ class Hall extends StatefulWidget {
 }
 
 class _HallState extends State<Hall> {
-  String username = "";
   bool isEnabled = false;
 
   @override
@@ -48,10 +47,10 @@ class _HallState extends State<Hall> {
                                             title: const Center(
                                               child: Text('My Profile Details'),
                                             ),
-                                            content: Center(
+                                            content: SingleChildScrollView(
                                               child: SizedBox(
                                                 width: 350,
-                                                height: 450,
+                                                // height: 450,
                                                 child: Column(
                                                   children: [
                                                     Image.network(
@@ -87,6 +86,27 @@ class _HallState extends State<Hall> {
                                                               labelText: 'Age',
                                                             ),
                                                           ),
+                                                          const SizedBox(height: 20),
+                                                          TextFormField(
+                                                            initialValue: data[0]['phoneNumber'],
+                                                            onChanged: (value) => {
+                                                              setState(() {
+                                                                username = value;
+                                                              })
+                                                            },
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              labelText: 'Phone Number',
+                                                            ),
+                                                          ),
+                                                          const SizedBox(height: 20),
+                                                          TextFormField(
+                                                            initialValue: data[0]['profilFFE'],
+                                                            decoration: const InputDecoration(
+                                                              border: OutlineInputBorder(),
+                                                              labelText: 'Profil FFE',
+                                                            ),
+                                                          ),
                                                         ],
                                                       ),
                                                     )
@@ -109,7 +129,9 @@ class _HallState extends State<Hall> {
                                                     textStyle: Theme.of(context).textTheme.labelLarge,
                                                   ),
                                                   child: const Text('Confirm'),
-                                                  onPressed: () async {}),
+                                                  onPressed: () async {
+                                                    Navigator.of(context).pop();
+                                                  }),
                                             ],
                                           );
                                         },
