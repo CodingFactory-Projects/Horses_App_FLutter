@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:horses_app/class/RegisterModel.dart';
 import 'package:horses_app/config/mongodb.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class Hall extends StatefulWidget {
   Hall({super.key});
@@ -14,6 +15,9 @@ class Hall extends StatefulWidget {
 
 class _HallState extends State<Hall> {
   bool isEnabled = false;
+  String? phoneNumber;
+  String? age;
+  String? profileFFE;
 
   @override
   Widget build(BuildContext context) {
@@ -60,51 +64,113 @@ class _HallState extends State<Hall> {
                                                     ),
                                                     const SizedBox(height: 20),
                                                     Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 20),
                                                       child: Column(
                                                         children: [
                                                           TextFormField(
-                                                            initialValue: data[0]['username'],
-                                                            decoration: const InputDecoration(
-                                                              border: OutlineInputBorder(),
-                                                              labelText: 'Username',
+                                                            initialValue: data[
+                                                                0]['username'],
+                                                            enabled: false,
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              labelText:
+                                                                  'Username',
                                                             ),
                                                           ),
-                                                          const SizedBox(height: 20),
+                                                          const SizedBox(
+                                                              height: 20),
                                                           TextFormField(
-                                                            initialValue: data[0]['email'],
-                                                            decoration: const InputDecoration(
-                                                              border: OutlineInputBorder(),
-                                                              labelText: 'Email',
+                                                            initialValue:
+                                                                data[0]
+                                                                    ['email'],
+                                                            enabled: false,
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              labelText:
+                                                                  'Email',
                                                             ),
                                                           ),
-                                                          const SizedBox(height: 20),
+                                                          const SizedBox(
+                                                              height: 20),
                                                           TextFormField(
-                                                            initialValue: data[0]['age'],
-                                                            decoration: const InputDecoration(
-                                                              border: OutlineInputBorder(),
+                                                            initialValue:
+                                                                data[0]
+                                                                    ['photo'],
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            onChanged:
+                                                                (value) => {
+                                                              data[0]['photo'] =
+                                                                  value
+                                                            },
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              labelText:
+                                                                  'Profile Picture',
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 20),
+                                                          TextFormField(
+                                                            initialValue:
+                                                                data[0]['age'],
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            onChanged:
+                                                                (value) => {
+                                                              age = value
+                                                            },
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
                                                               labelText: 'Age',
                                                             ),
                                                           ),
-                                                          const SizedBox(height: 20),
+                                                          const SizedBox(
+                                                              height: 20),
                                                           TextFormField(
-                                                            initialValue: data[0]['phoneNumber'],
-                                                            onChanged: (value) => {
-                                                              setState(() {
-                                                                username = value;
-                                                              })
+                                                            initialValue: data[
+                                                                    0]
+                                                                ['phoneNumber'],
+                                                            onChanged:
+                                                                (value) => {
+                                                              phoneNumber =
+                                                                  value
                                                             },
-                                                            decoration: const InputDecoration(
-                                                              border: OutlineInputBorder(),
-                                                              labelText: 'Phone Number',
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              labelText:
+                                                                  'Phone Number',
                                                             ),
                                                           ),
-                                                          const SizedBox(height: 20),
+                                                          const SizedBox(
+                                                              height: 20),
                                                           TextFormField(
-                                                            initialValue: data[0]['profilFFE'],
-                                                            decoration: const InputDecoration(
-                                                              border: OutlineInputBorder(),
-                                                              labelText: 'Profil FFE',
+                                                            initialValue: data[
+                                                                0]['profilFFE'],
+                                                            onChanged:
+                                                                (value) => {
+                                                              profileFFE = value
+                                                            },
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              labelText:
+                                                                  'Profil FFE',
                                                             ),
                                                           ),
                                                         ],
@@ -117,20 +183,32 @@ class _HallState extends State<Hall> {
                                             actions: <Widget>[
                                               TextButton(
                                                 style: TextButton.styleFrom(
-                                                  textStyle: Theme.of(context).textTheme.labelLarge,
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .labelLarge,
                                                 ),
                                                 child: const Text('Cancel'),
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
+                                                  setState(() {});
                                                 },
                                               ),
                                               TextButton(
                                                   style: TextButton.styleFrom(
-                                                    textStyle: Theme.of(context).textTheme.labelLarge,
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge,
                                                   ),
                                                   child: const Text('Confirm'),
                                                   onPressed: () async {
-                                                    Navigator.of(context).pop();
+                                                    await MongoDatabase
+                                                            .updateUser(data[0]['_id'], data[0]['photo'], age, phoneNumber, profileFFE)
+                                                        .whenComplete(() => {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(),
+                                                            });
+                                                    setState(() {});
                                                   }),
                                             ],
                                           );
@@ -145,7 +223,8 @@ class _HallState extends State<Hall> {
                       Text("Welcome ${data[0]['username']}"),
                       SizedBox(
                         height: 300,
-                        child: Card(child: Image.network(data[0]['photo'].toString())),
+                        child: Card(
+                            child: Image.network(data[0]['photo'].toString())),
                       ),
                       ElevatedButton(
                           onPressed: () => {

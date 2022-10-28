@@ -25,7 +25,7 @@ class RegisterModel {
   String email;
   String password;
   String photo;
-  int? age;
+  String? age;
   String? phoneNumber;
   String? profilFFE;
 

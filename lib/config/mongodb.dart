@@ -63,4 +63,13 @@ class MongoDatabase {
     print(data);
     return data;
   }
+
+  static Future<void> updateUser(var id, String? photo, String? age, String? phoneNumber, String? profilFFE ) async {
+    var result = await userCollection.findOne({"_id": idUser});
+    result["photo"] = photo;
+    result["age"] = age;
+    result["phoneNumber"] = phoneNumber;
+    result["profilFFE"] = profilFFE;
+    var response = await userCollection.save(result);
+  }
 }

@@ -33,7 +33,8 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(        title: const Text("Register"),
+      ),
       body: SafeArea(
         child: Center(
           // mainAxisAlignment: MainAxisAlignment.center,
@@ -162,7 +163,7 @@ class _RegisterState extends State<Register> {
               TextButton(
                 onPressed: () =>
                     {Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false)},
-                child: const Text("Register"),
+                child: const Text("Login"),
               ),
             ],
           ),
