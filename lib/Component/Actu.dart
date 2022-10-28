@@ -183,7 +183,14 @@ class _MyCardCursus extends StatelessWidget {
           height: 200,
           child: DecoratedBox(
             decoration: const BoxDecoration(
-                color: Colors.red
+                color: Colors.white,
+              border: Border(
+                top: BorderSide(color: Color(0xFFFFFFFF)),
+                left: BorderSide(color: Color(0xFFFFFFFF)),
+                right: BorderSide(color: Color(0xFFFFFFFF)),
+                bottom: BorderSide(color: Color(0xFFFFFFFF)),
+              )
+
             ),
             child: Column(
               children: [
@@ -208,9 +215,9 @@ class _MyCardCursus extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children:  [
-                    (person.discipline != null) ? Text( 'level :' +
+                    (person.discipline != null) ? Text( 'Discipline :' +
                         person.discipline) : const Text(''),
-                    (person.delay != null) ? Text( 'level :' +
+                    (person.delay != null) ? Text( 'Durée :' +
                         person.delay) : const Text(''),
                   ],
 
@@ -262,7 +269,13 @@ class _MyCardContest extends StatelessWidget {
           height: 200,
           child: DecoratedBox(
             decoration: const BoxDecoration(
-                color: Colors.red
+                color: Colors.red,
+                border: Border(
+                  top: BorderSide(color: Color(0xFFFFFFFF)),
+                  left: BorderSide(color: Color(0xFFFFFFFF)),
+                  right: BorderSide(color: Color(0xFFFFFFFF)),
+                  bottom: BorderSide(color: Color(0xFFFFFFFF)),
+                )
             ),
             child: Column(
               children: [
@@ -343,7 +356,13 @@ class _MyCardParty extends StatelessWidget {
           height: 200,
           child: DecoratedBox(
             decoration: const BoxDecoration(
-                color: Colors.red
+                color: Colors.red,
+                border: Border(
+                  top: BorderSide(color: Color(0xFFFFFFFF)),
+                  left: BorderSide(color: Color(0xFFFFFFFF)),
+                  right: BorderSide(color: Color(0xFFFFFFFF)),
+                  bottom: BorderSide(color: Color(0xFFFFFFFF)),
+                )
             ),
             child: Column(
               children: [

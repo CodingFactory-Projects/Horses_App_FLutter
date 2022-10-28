@@ -110,9 +110,6 @@ class _PartyFormState extends State<PartyForm> {
 
                   );
                   userController.insertEvent(user);
-
-
-
                 }
               },
               color: Colors.redAccent,
