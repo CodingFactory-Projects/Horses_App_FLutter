@@ -74,6 +74,7 @@ class _HorseState extends State<Horse> {
 
                   setState(() {
                     horse = horse;
+                    controllers = controllers;
                   });
                 },
               ),
@@ -135,7 +136,11 @@ class _HorseState extends State<Horse> {
   }
 
   getHorses() async {
-    List horses = await MongoDatabase.select('horses');
+    List horses = await MongoDatabase.getHorses();
+
+    if (horses.isEmpty) {
+      return;
+    }
 
     for (int i = 0; i < horses.length; i++) {
       var currHorse = horses[i];

@@ -8,7 +8,6 @@ import 'package:horses_app/class/RegisterModel.dart';
 import 'constants.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
-
 class MongoDatabase {
   static var db, userCollection, currCollection, idUser;
 
@@ -66,7 +65,8 @@ class MongoDatabase {
     return data;
   }
 
-  static Future<void> updateUser(var id, String? photo, String? age, String? phoneNumber, String? profilFFE) async {
+  static Future<void> updateUser(var id, String? photo, String? age,
+      String? phoneNumber, String? profilFFE) async {
     var result = await userCollection.findOne({"_id": idUser});
     result["photo"] = photo;
     result["age"] = age;
@@ -80,25 +80,20 @@ class MongoDatabase {
     await userCollection.insert(model.toJson());
   }
 
-  static select(
-    String collection,
-  ) async {
-    currCollection = db.collection(collection);
-    var profile = await currCollection.find().toList();
-    profile = profile.first; //à remplacer avec l'id
-    return profile;
+  static getHorses() async {
+    currCollection = db.collection('horses');
+    return await currCollection.find().toList();
   }
 
   static addHorse(HorseModel model) async {
     Map<String, dynamic> json = {
-      "_id": '',
-      "username": '',
-      "email": '',
-      "password": '',
-      "image": '',
+      "name": model.name,
+      "photo": '',
       "age": '',
-      "phoneNumber": '',
-      "profilFFE": '',
+      "dress": '',
+      "race": '',
+      "gender": '',
+      "speciality": '',
     };
 
     json['_id'] = ObjectId();
@@ -124,6 +119,8 @@ class MongoDatabase {
     u['race'] = horse.race;
     u['gender'] = horse.gender;
     u['speciality'] = horse.speciality;
+
+    print(u);
 
     await currCollection.save(u);
   }
