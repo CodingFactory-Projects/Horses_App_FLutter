@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> {
             ),
             TextButton(
                 onPressed: () {
-                  _updateProfile();
+                  // _updateProfile();
                 },
                 child: const Text('Mettre à jour mon profil')),
           ],
@@ -113,7 +113,7 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  _updateProfile() async {
-    await MongoDatabase.updateUser(user);
-  }
+  // _updateProfile() async {
+  //   await MongoDatabase.updateUser(user);
+  // }
 }

@@ -7,7 +7,6 @@ import 'package:horses_app/screens/Hall.dart';
 import 'Nav.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();

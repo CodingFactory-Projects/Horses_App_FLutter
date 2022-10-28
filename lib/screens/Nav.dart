@@ -15,7 +15,7 @@ class NavBar extends StatefulWidget {
 int _currentIndex = 0;
 final List pages = [
   const Home(),
-  const Login()
+  Login()
 ];
 
 currentPage() {
@@ -23,7 +23,7 @@ currentPage() {
 }
 
 getPage() {
-  return const Login();
+  return Login();
 }
 
 class _NavBarState extends State<NavBar> {

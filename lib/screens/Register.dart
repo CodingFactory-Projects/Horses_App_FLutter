@@ -162,7 +162,7 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 10),
               TextButton(
                 onPressed: () =>
-                    {Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false)},
+                    {Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (Route<dynamic> route) => false)},
                 child: const Text("Login"),
               ),
             ],

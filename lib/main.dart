@@ -4,14 +4,16 @@ import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/Hall.dart';
 import 'package:horses_app/screens/Home.dart';
 import 'package:horses_app/screens/Horse.dart';
+import 'package:horses_app/screens/Login.dart';
 import 'package:horses_app/screens/Profile.dart';
+import 'package:horses_app/screens/Register.dart';
 
 import 'config/mongodb.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(MyApp());
 }
 
 // ignore: must_be_immutable
