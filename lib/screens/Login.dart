@@ -4,6 +4,8 @@ import 'package:horses_app/class/RegisterModel.dart';
 import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/Hall.dart';
 
+import 'Nav.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -65,9 +67,7 @@ class _LoginState extends State<Login> {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () async {
-                  var query = await MongoDatabase.db
-                      .collection("users")
-                      .findOne({"username": username, "password": password});
+                  var query = await MongoDatabase.db.collection("users").findOne({"username": username, "password": password});
 
                   print(query);
 
@@ -80,10 +80,7 @@ class _LoginState extends State<Login> {
                   } else {
                     MongoDatabase.getUserId(query['_id']);
 
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => Hall()),
-                        (Route<dynamic> route) => false);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Hall()), (Route<dynamic> route) => false);
                   }
                 },
                 child: const Text("Login"),
@@ -117,11 +114,9 @@ class _LoginState extends State<Login> {
             height: 350,
             child: Column(
               children: [
-                const Text(
-                    "In order to reset your password, please enter your email address and your username"),
+                const Text("In order to reset your password, please enter your email address and your username"),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
                   child: TextField(
                     onChanged: (value) {
                       username = value;
@@ -133,8 +128,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
                   child: TextField(
                     onChanged: (value) {
                       email = value;
@@ -146,8 +140,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
                   child: TextField(
                     onChanged: (value) {
                       newPassword = value;
@@ -177,9 +170,7 @@ class _LoginState extends State<Login> {
               ),
               child: const Text('Confirm'),
               onPressed: () async {
-                var query = await MongoDatabase.db
-                    .collection("users")
-                    .findOne({"username": username, "email": email});
+                var query = await MongoDatabase.db.collection("users").findOne({"username": username, "email": email});
 
                 print(query);
 

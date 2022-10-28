@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:horses_app/class/RegisterModel.dart';
 import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/Hall.dart';
+import 'package:horses_app/screens/Home.dart';
+import 'package:horses_app/screens/Horse.dart';
+import 'package:horses_app/screens/Profile.dart';
 
-import 'screens/Home.dart';
-import 'screens/Login.dart';
-import 'screens/Register.dart';
+import 'config/mongodb.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
-  runApp(MyApp());
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 // ignore: must_be_immutable
@@ -30,7 +31,6 @@ class MyApp extends StatelessWidget {
     900: const Color.fromRGBO(147, 205, 72, 1),
   };
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,10 +41,9 @@ class MyApp extends StatelessWidget {
         '/register': (context) => Register(),
         '/login': (context) => Login(),
         '/hall': (context) => Hall(),
+        '/horse': (context) => const Horse(),
       },
-      theme: ThemeData(
-          primarySwatch: MaterialColor(0xFF2596be, colorCodes),
-          scaffoldBackgroundColor: const Color(0xFFeeeee4)),
+      theme: ThemeData(primarySwatch: MaterialColor(0xFF2596be, colorCodes), scaffoldBackgroundColor: const Color(0xFFeeeee4)),
       home: Home(),
     );
   }

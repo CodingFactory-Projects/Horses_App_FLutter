@@ -5,6 +5,8 @@ import 'package:horses_app/class/RegisterModel.dart';
 import 'package:horses_app/screens/Hall.dart';
 import 'package:horses_app/screens/Register.dart';
 
+import 'Nav.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -18,6 +20,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const NavBar(),
       body: SafeArea(
           child: Center(
         child: Column(
