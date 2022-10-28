@@ -39,7 +39,7 @@ class _PartyFormState extends State<PartyForm> {
           children: [
             TextField(
               controller: dateController,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.grey),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),

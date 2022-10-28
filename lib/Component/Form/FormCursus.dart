@@ -41,7 +41,7 @@ class _CursusFormState extends State<CursusForm> {
           children: [
             TextField(
               controller: delay,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.grey),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -91,7 +91,7 @@ class _CursusFormState extends State<CursusForm> {
             ),
             TextField(
               controller: dateController,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.grey),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),

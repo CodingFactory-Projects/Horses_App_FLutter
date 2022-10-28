@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:horses_app/Component/Actu.dart';
 import 'package:horses_app/config/EventController.dart';
 import 'package:horses_app/config/UserController.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,7 +43,7 @@ class _ContestFormState extends State<ContestForm> {
           children: [
             TextField(
               controller: nameController,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.grey),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -92,7 +93,7 @@ class _ContestFormState extends State<ContestForm> {
             ),
             TextField(
               controller: levelController,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.grey),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -190,6 +191,9 @@ class _ContestFormState extends State<ContestForm> {
                     base64Image,
                   );
                   userController.insertEvent(user);
+                  setState(() {
+                    ActuPage(title: 'Flux Actu');
+                  });
                 }
               },
               color: Colors.redAccent,

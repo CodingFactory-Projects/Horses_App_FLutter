@@ -28,6 +28,7 @@ class _ActuPageState extends State<ActuPage> {
   var futureList = [];
   var showform = '';
   var eventController = EventController();
+  var loading = false;
   addCart() async {
     var contest = await eventController.getConstestEvents();
     print(contest.typeEvent);
@@ -40,6 +41,7 @@ class _ActuPageState extends State<ActuPage> {
   }
 
   getCard() async{
+     loading = true;
     var event = await eventController.getAllEvent();
     for (var e in event){
       print(e['type_event']);
@@ -66,7 +68,7 @@ class _ActuPageState extends State<ActuPage> {
       });
     }
     setState(() {
-
+    loading = false;
     });
   }
 
@@ -84,14 +86,14 @@ class _ActuPageState extends State<ActuPage> {
           title: Text(widget.title),
         ),
         body: Center(
-          child:
+          child: (loading == false)?
           ListView.builder(
               itemCount: futureList.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                     subtitle: futureList[index]
                 );
-              }),
+              }) : Text('Donnée en chargement ...'),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () =>
@@ -189,6 +191,9 @@ class _MyCardCursus extends StatelessWidget {
                   actions: [
                     Center(
                         child: Text(this.title,
+                          style: TextStyle(
+                              fontSize: 25
+                          ),
                         )
                     )
 
@@ -265,6 +270,9 @@ class _MyCardContest extends StatelessWidget {
                   actions: [
                     Center(
                         child: Text(this.title,
+                          style: TextStyle(
+                              fontSize: 25
+                          ),
                         )
                     )
 
@@ -343,6 +351,9 @@ class _MyCardParty extends StatelessWidget {
                   actions: [
                     Center(
                         child: Text(this.title,
+                          style: TextStyle(
+                            fontSize: 25
+                          ),
                         )
                     )
 
@@ -357,13 +368,9 @@ class _MyCardParty extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children:  [
-                    (person.date != null) ? Text( 'level :' +
+                    (person.date != null) ? Text( 'date :' +
                         person.date) : const Text(''),
                   ],
-
-
-
-
                 ),
                 Row(
                   children: [
