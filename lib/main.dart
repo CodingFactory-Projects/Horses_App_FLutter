@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:horses_app/config/mongodb.dart';
+import 'package:horses_app/screens/Home.dart';
+import 'package:horses_app/screens/Horse.dart';
 import 'package:horses_app/screens/Profile.dart';
 
-import 'screens/Home.dart';
-import 'screens/Login.dart';
+import 'config/mongodb.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/home': (context) => const Home(),
-        '/login': (context) => const Login(),
+        '/horse': (context) => const Horse(),
+        '/login': (context) => const Profile(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
