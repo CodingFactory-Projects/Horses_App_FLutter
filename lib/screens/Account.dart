@@ -11,9 +11,6 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   bool isEnabled = false;
-  String? phoneNumber;
-  String? age;
-  String? profileFFE;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +76,8 @@ class _AccountState extends State<Account> {
                                 TextFormField(
                                   initialValue: data[0]['age'],
                                   keyboardType: TextInputType.number,
-                                  onChanged: (value) => {age = value},
+                                  onChanged: (value) =>
+                                      {data[0]['age'] = value},
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Age',
@@ -88,7 +86,8 @@ class _AccountState extends State<Account> {
                                 const SizedBox(height: 20),
                                 TextFormField(
                                   initialValue: data[0]['phoneNumber'],
-                                  onChanged: (value) => {phoneNumber = value},
+                                  onChanged: (value) =>
+                                      {data[0]['phoneNumber'] = value},
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Phone Number',
@@ -97,7 +96,8 @@ class _AccountState extends State<Account> {
                                 const SizedBox(height: 20),
                                 TextFormField(
                                   initialValue: data[0]['profilFFE'],
-                                  onChanged: (value) => {profileFFE = value},
+                                  onChanged: (value) =>
+                                      {data[0]['profilFFE'] = value},
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Profil FFE',
@@ -114,9 +114,9 @@ class _AccountState extends State<Account> {
                                       await MongoDatabase.updateUser(
                                               data[0]['_id'],
                                               data[0]['photo'],
-                                              age,
-                                              phoneNumber,
-                                              profileFFE)
+                                              data[0]['age'],
+                                              data[0]['phoneNumber'],
+                                              data[0]['profilFFE'])
                                           .whenComplete(() => {
                                                 Navigator.of(context).pop(),
                                               });
