@@ -31,8 +31,9 @@ class _ContestFormState extends State<ContestForm> {
       setState(() {});
     }
 
-    TextEditingController delayController = TextEditingController();
-    TextEditingController disciplineController = TextEditingController();
+    TextEditingController nameController = TextEditingController();
+    TextEditingController adressController = TextEditingController();
+    TextEditingController levelController = TextEditingController();
     TextEditingController dateController = TextEditingController();
 
     return Form(
@@ -40,7 +41,7 @@ class _ContestFormState extends State<ContestForm> {
         child: Column(
           children: [
             TextField(
-              controller: delayController,
+              controller: nameController,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -55,7 +56,7 @@ class _ContestFormState extends State<ContestForm> {
                       color: Colors.black,
                     ),
                   ),
-                  hintText: "Enter the delay of cursus",
+                  hintText: "Enter the name event",
                   hintStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -65,7 +66,7 @@ class _ContestFormState extends State<ContestForm> {
               height: 30,
             ),
             TextField(
-              controller: disciplineController,
+              controller: adressController,
               style: const TextStyle(color: Colors.grey),
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -80,7 +81,32 @@ class _ContestFormState extends State<ContestForm> {
                       color: Colors.black,
                     ),
                   ),
-                  hintText: "Enter the discipline  event",
+                  hintText: "Enter the adress  event",
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            TextField(
+              controller: levelController,
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+                  hintText: "Enter your level",
                   hintStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -156,23 +182,21 @@ class _ContestFormState extends State<ContestForm> {
                   final bytes = imagee!.readAsBytesSync();
                   String base64Image =  base64Encode(bytes);
                   var userController = EventController();
-                  var user =  Cursus(
-                    delayController.value.text,
-                    disciplineController.value.text,
+                  var user =  Contest(
+                    nameController.value.text,
+                    adressController.value.text,
+                    levelController.value.text,
                     dateController.value.text,
                     base64Image,
                   );
                   userController.insertEvent(user);
-
-
-
                 }
               },
               color: Colors.redAccent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40)
               ),
-              child: const Text("add Contest",style: TextStyle(
+              child: const Text("Add a contest",style: TextStyle(
                 fontWeight: FontWeight.w600,fontSize: 16,
               ),),
             ),

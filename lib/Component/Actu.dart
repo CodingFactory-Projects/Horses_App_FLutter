@@ -31,7 +31,7 @@ class _ActuPageState extends State<ActuPage> {
   addCart() async {
     var contest = await eventController.getConstestEvents();
     print(contest.typeEvent);
-    futureList.add(_MyCard(person: contest, title: contest.typeEvent));
+    futureList.add(_MyCardContest(person: contest, title: contest.typeEvent));
     setState(() {
 
     });
@@ -39,10 +39,42 @@ class _ActuPageState extends State<ActuPage> {
 
   }
 
+  getCard() async{
+    var event = await eventController.getAllEvent();
+    for (var e in event){
+      print(e['type_event']);
+      if(e['type_event'] != null){
+        switch(e['type_event']){
+          case 'party' :
+            var coll = await Party.fromJson(e);
+            futureList.add(_MyCardParty(person: coll, title: coll.typeEvent));
+            break;
+          case 'contest' :
+            var coll = await Contest.fromJson(e);
+            futureList.add(_MyCardContest(person: coll, title: coll.typeEvent));
+            break;
+          case 'cursus' :
+            var coll = await Cursus.fromJson(e);
+            futureList.add(_MyCardCursus(person: coll, title: coll.typeEvent));
+            break;
+        }
+
+      }
+
+      setState(() {
+
+      });
+    }
+    setState(() {
+
+    });
+  }
+
   @override
   initState()  {
     super.initState();
-    addCart();
+
+    getCard();
 
   }
   @override
@@ -131,8 +163,8 @@ class _ActuPageState extends State<ActuPage> {
 
 
 
-class _MyCard extends StatelessWidget {
-  const _MyCard({required this.person , required this.title});
+class _MyCardCursus extends StatelessWidget {
+  const _MyCardCursus({required this.person , required this.title});
   final  person;
   final title;
   //final String adress;
@@ -171,12 +203,162 @@ class _MyCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children:  [
-                    (person.level != null) ? Text( 'level :' +
+                    (person.discipline != null) ? Text( 'level :' +
+                        person.discipline) : const Text(''),
+                    (person.delay != null) ? Text( 'level :' +
+                        person.delay) : const Text(''),
+                  ],
+
+
+
+
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Color(0xff476cfb),
+                      child: ClipOval(
+                        child: SizedBox(
+                            width: 90.0,
+                            height: 90.0,
+                            child: (person.image != null) ? Image.memory(bytes) : Text('')
+                        ),
+                      ),
+                    ),
+                  ],
+
+                )
+              ],
+            ),
+          )
+
+      ),
+    );
+  }
+
+}
+
+class _MyCardContest extends StatelessWidget {
+  const _MyCardContest({required this.person , required this.title});
+  final  person;
+  final title;
+  //final String adress;
+
+  @override
+  Widget build(BuildContext ctx) {
+
+    var bytes = base64Decode(person.image);
+    return Card(
+
+      shadowColor: Colors.black,
+      child: SizedBox(
+          width: 300,
+          height: 200,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+                color: Colors.red
+            ),
+            child: Column(
+              children: [
+                AppBar(
+                  actions: [
+                    Center(
+                        child: Text(this.title,
+                        )
+                    )
+
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children:  [
+                    Text(person.date, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children:  [
+                    (person.date != null) ? Text( 'level :' +
                         person.level) : const Text(''),
                     (person.name!= null) ? Text(
                         person.name) : const Text(''),
                     (person.adress != null) ? Text(
                         person.adress) : const Text(''),
+                  ],
+
+
+
+
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Color(0xff476cfb),
+                      child: ClipOval(
+                        child: SizedBox(
+                            width: 90.0,
+                            height: 90.0,
+                            child: (person.image != null) ? Image.memory(bytes) : Text('')
+                        ),
+                      ),
+                    ),
+                  ],
+
+                )
+              ],
+            ),
+          )
+
+      ),
+    );
+  }
+
+}
+
+class _MyCardParty extends StatelessWidget {
+  const _MyCardParty({required this.person , required this.title});
+  final  person;
+  final title;
+  //final String adress;
+
+  @override
+  Widget build(BuildContext ctx) {
+
+    var bytes = base64Decode(person.image);
+    return Card(
+
+      shadowColor: Colors.black,
+      child: SizedBox(
+          width: 300,
+          height: 200,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+                color: Colors.red
+            ),
+            child: Column(
+              children: [
+                AppBar(
+                  actions: [
+                    Center(
+                        child: Text(this.title,
+                        )
+                    )
+
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children:  [
+                    Text(person.date, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children:  [
+                    (person.date != null) ? Text( 'level :' +
+                        person.date) : const Text(''),
                   ],
 
 

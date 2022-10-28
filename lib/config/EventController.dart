@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:mongo_dart/mongo_dart.dart';
 
 import 'mongodb.dart';
@@ -42,10 +44,12 @@ class Cursus extends Event{
     String discipline;
 
     factory Cursus.fromJson(Map<String, dynamic> json) => Cursus(
-        json["date"],
+      json["delay"],
+      json["discipline"],
+      json["date"],
         json["image"],
-        json["delay"],
-        json["discipline"],
+
+
 
     );
 }
@@ -55,9 +59,7 @@ class EventController{
   insertEvent(event) async{
     var Db = await MongoDatabase.getEventDb();
     print(Db);
-    print(event.typeEvent);
-    print(event.image);
-    print(event.date);
+
 
       switch(event.typeEvent){
         case 'party':{
@@ -78,7 +80,7 @@ class EventController{
           await Db.insertOne(<String, dynamic>{
             'type_event': event.typeEvent,
             'image': event.image,
-            'date': 'event.date',
+            'date': event.date,
             "name" : event.name,
             "adress" : event.adress,
             "delay" : '',
@@ -106,12 +108,21 @@ class EventController{
       }
   }
 
+  getAllEvent() async{
+    var Db = await MongoDatabase.getEventDb();
+    var rese = await Db.find().toList();
+    print('ff');
+    return rese;
+  }
+
 
   getConstestEvents() async{
     var Db = await MongoDatabase.getEventDb();
     var res = await Db.findOne(where.eq("type_event", "contest"));
+    var rese = await Db.find().toList();
     var coll = await Contest.fromJson(res);
-    print(coll.name);
+    inspect(coll);
+    print(rese);
     return coll;
   }
 
