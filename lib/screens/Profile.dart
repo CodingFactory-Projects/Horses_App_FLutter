@@ -15,9 +15,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   UserModel user = UserModel('', '', '', '', '', '', '', '');
-  List<TextEditingController> controllers = List<TextEditingController>.generate(
-      3, (i) => TextEditingController()
-  );
+  List<TextEditingController> controllers =
+      List<TextEditingController>.generate(3, (i) => TextEditingController());
 
   //List<String> list = <String>['Oui', 'Non',];
   //String dropdownValue = 'Non';
@@ -41,27 +40,22 @@ class _ProfileState extends State<Profile> {
           children: <Widget>[
             TextField(
               controller: controllers[0],
-              decoration: const InputDecoration(
-                  hintText: 'Numéro de téléphone'
-              ),
+              decoration:
+                  const InputDecoration(hintText: 'Numéro de téléphone'),
               onChanged: (value) {
                 user.phoneNumber = value;
               },
             ),
             TextField(
               controller: controllers[1],
-              decoration: const InputDecoration(
-                  hintText: 'Âge'
-              ),
+              decoration: const InputDecoration(hintText: 'Âge'),
               onChanged: (value) {
                 user.age = value;
               },
             ),
             TextField(
               controller: controllers[2],
-              decoration: const InputDecoration(
-                  hintText: 'Profil FFE'
-              ),
+              decoration: const InputDecoration(hintText: 'Profil FFE'),
               onChanged: (value) {
                 user.ffeLink = value;
               },
@@ -95,8 +89,7 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   _updateProfile();
                 },
-                child: const Text('Mettre à jour mon profil')
-            ),
+                child: const Text('Mettre à jour mon profil')),
           ],
         ),
       ),
