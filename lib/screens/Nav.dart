@@ -27,7 +27,7 @@ getPage() {
 }
 
 class _NavBarState extends State<NavBar> {
-  var routes = ['/home', '/login'];
+  var routes = ['/hall', '/account', '/horse'];
   var page = const Home();
 
   void onTabTapped(int index) {
@@ -54,6 +54,10 @@ class _NavBarState extends State<NavBar> {
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
           label: 'Compte',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle),
+          label: 'Chevaux',
         ),
       ],
     );

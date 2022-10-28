@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:horses_app/class/RegisterModel.dart';
 import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/Hall.dart';
 import 'package:horses_app/screens/Home.dart';
 import 'package:horses_app/screens/Horse.dart';
 import 'package:horses_app/screens/Login.dart';
-import 'package:horses_app/screens/Profile.dart';
 import 'package:horses_app/screens/Register.dart';
+import 'package:horses_app/screens/Account.dart';
 
 import 'config/mongodb.dart';
 
@@ -44,6 +43,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/hall': (context) => Hall(),
         '/horse': (context) => const Horse(),
+        '/account': (context) => Account(),
+
       },
       theme: ThemeData(primarySwatch: MaterialColor(0xFF2596be, colorCodes), scaffoldBackgroundColor: const Color(0xFFeeeee4)),
       home: Home(),

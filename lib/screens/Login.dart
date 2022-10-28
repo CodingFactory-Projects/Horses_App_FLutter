@@ -54,6 +54,7 @@ class _LoginState extends State<Login> {
               SizedBox(
                 width: 300,
                 child: TextField(
+                  obscureText: true,
                   onChanged: (value) {
                     password = value;
                   },
