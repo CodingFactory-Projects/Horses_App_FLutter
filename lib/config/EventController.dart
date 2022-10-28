@@ -110,7 +110,6 @@ class EventController{
   getConstestEvents() async{
     var Db = await MongoDatabase.getEventDb();
     var res = await Db.findOne(where.eq("type_event", "contest"));
-
     var coll = await Contest.fromJson(res);
     print(coll.name);
     return coll;
