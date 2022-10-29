@@ -80,49 +80,48 @@ class MongoDatabase {
     await userCollection.insert(model.toJson());
   }
 
-  static getHorses() async {
-    currCollection = db.collection('horses');
-    return await currCollection.find().toList();
+  static Future<List<Map<String, dynamic>>> getHorses() async {
+    final data = await currCollection.find(where.gt("_ownerId", idUser)).toList();
+    print(data);
+    return data;
   }
 
   static addHorse(HorseModel model) async {
-    Map<String, dynamic> json = {
-      "name": model.name,
-      "photo": '',
-      "age": '',
-      "dress": '',
-      "race": '',
-      "gender": '',
-      "speciality": '',
-    };
-
-    json['_id'] = ObjectId();
-
     var userCollection = db.collection('horses');
-    await userCollection.insert(json);
-    return json['_id'].$oid;
+    var query = await userCollection.insert();
+    print(query);
+    // return json['_id'].$oid;
   }
 
-  static updateHorse(String? originalName, HorseModel horse) async {
-    currCollection = db.collection('horses');
+  // static updateHorse(String? originalName, HorseModel horse) async {
+  //   currCollection = db.collection('horses');
+  //   var query = await currCollection.findOne({"name": originalName});
+  //
+  // }
 
-    var u = await currCollection.findOne({'name': originalName});
+  static Future<void> updateHorse(
+      var id,
+      String? name,
+      String? photo,
+      String? age,
+      String? dress,
+      String? race,
+      String? gender,
+      String? speciality) async {
+    var result = await currCollection.findOne({"_id": id});
 
-    if (u.length == 0) {
-      return;
-    }
+    result["name"] = name;
+    result["photo"] = photo;
+    result["age"] = age;
+    result["dress"] = dress;
+    result["race"] = race;
+    result["gender"] = gender;
+    result["speciality"] = speciality;
 
-    u['name'] = horse.name;
-    u['photo'] = horse.photo;
-    u['age'] = horse.age;
-    u['dress'] = horse.dress;
-    u['race'] = horse.race;
-    u['gender'] = horse.gender;
-    u['speciality'] = horse.speciality;
+    var response = await currCollection.save(result);
 
-    print(u);
-
-    await currCollection.save(u);
+    print("result : " + result);
+    // print("response : " + response);
   }
 
   static deleteHorse(String? name) async {
