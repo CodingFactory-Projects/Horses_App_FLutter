@@ -1,12 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:horses_app/class/RegisterModel.dart';
-import 'package:horses_app/screens/Hall.dart';
-import 'package:horses_app/screens/Register.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
 
   @override
   State<StatefulWidget> createState() {

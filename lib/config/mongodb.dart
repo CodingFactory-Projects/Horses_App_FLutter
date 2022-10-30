@@ -9,7 +9,7 @@ import 'constants.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
-  static var db, userCollection, currCollection, idUser;
+  static var db, userCollection, horsesCollection, idUser;
 
   static connect() async {
     db = await Db.create(MONGO_URL);
@@ -48,6 +48,14 @@ class MongoDatabase {
     return result;
   }
 
+  static Future<List<Map<String, dynamic>>> getHorses() async {
+    horsesCollection = db.collection("horses");
+    final result = await horsesCollection.find(where.eq("_ownerId", idUser)).toList();
+    // print(result);
+    return result;
+  }
+
+
   static insertUserId(userId) async {
     idUser = await userId;
     print(idUser);
@@ -80,12 +88,6 @@ class MongoDatabase {
     await userCollection.insert(model.toJson());
   }
 
-  static Future<List<Map<String, dynamic>>> getHorses() async {
-    final data = await currCollection.find(where.gt("_ownerId", idUser)).toList();
-    print(data);
-    return data;
-  }
-
   static addHorse(HorseModel model) async {
     var userCollection = db.collection('horses');
     var query = await userCollection.insert();
@@ -108,7 +110,7 @@ class MongoDatabase {
       String? race,
       String? gender,
       String? speciality) async {
-    var result = await currCollection.findOne({"_id": id});
+    var result = await horsesCollection.findOne({"_id": id});
 
     result["name"] = name;
     result["photo"] = photo;
@@ -118,14 +120,14 @@ class MongoDatabase {
     result["gender"] = gender;
     result["speciality"] = speciality;
 
-    var response = await currCollection.save(result);
+    var response = await horsesCollection.save(result);
 
     print("result : " + result);
     // print("response : " + response);
   }
 
   static deleteHorse(String? name) async {
-    currCollection = db.collection('horses');
-    await currCollection.remove({"name": name});
+    horsesCollection = db.collection('horses');
+    await horsesCollection.remove({"name": name});
   }
 }

@@ -13,10 +13,7 @@ class NavBar extends StatefulWidget {
 }
 
 int _currentIndex = 0;
-final List pages = [
-  const Home(),
-  Login()
-];
+final List pages = [Home(), Login()];
 
 currentPage() {
   return pages[_currentIndex];
@@ -28,7 +25,7 @@ getPage() {
 
 class _NavBarState extends State<NavBar> {
   var routes = ['/hall', '/account', '/horse'];
-  var page = const Home();
+  var page = Home();
 
   void onTabTapped(int index) {
     setState(() {
@@ -47,10 +44,7 @@ class _NavBarState extends State<NavBar> {
       currentIndex: _currentIndex,
       onTap: onTabTapped,
       items: const [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Accueil'
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
           label: 'Compte',

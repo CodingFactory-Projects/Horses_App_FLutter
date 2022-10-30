@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:horses_app/class/RegisterModel.dart';
 import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/Hall.dart';
-
-import 'Nav.dart';
 
 class Login extends StatefulWidget {
 

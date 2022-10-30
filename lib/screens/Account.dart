@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:horses_app/config/mongodb.dart';
 import 'package:horses_app/screens/Nav.dart';
 
@@ -17,7 +18,7 @@ class _AccountState extends State<Account> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Hall"),
+        title: const Text("Mon Compte"),
       ),
       bottomNavigationBar: const NavBar(),
       body: SafeArea(
@@ -36,8 +37,24 @@ class _AccountState extends State<Account> {
                         children: [
                           Image.network(
                             data[0]['photo'],
-                            // width: 200,
-                            // height: 200,
+                            height: 200.0,
+                            width: 300.0,
+                            fit: BoxFit.cover,
+                            errorBuilder: (BuildContext context, Object exception,
+                                StackTrace? stackTrace) {
+                              return Column(
+                                children: [
+                                  Image.asset('lib/assets/images/user.png',
+                                      height: 200.0, width: 300.0, fit: BoxFit.cover),
+                                  Text('Your image is not available',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.red,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center),
+                                ],
+                              );
+                            },
                           ),
                           const SizedBox(height: 20),
                           Padding(
