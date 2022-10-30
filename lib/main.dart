@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:horses_app/config/mongodb.dart';
+import 'package:horses_app/screens/Account.dart';
 import 'package:horses_app/screens/Hall.dart';
 import 'package:horses_app/screens/Home.dart';
 import 'package:horses_app/screens/Horse.dart';
 import 'package:horses_app/screens/Login.dart';
 import 'package:horses_app/screens/Register.dart';
-import 'package:horses_app/screens/Account.dart';
-
-import 'config/mongodb.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ScaffoldMessenger.of(context).hideCurrentSnackBar();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -44,10 +43,56 @@ class MyApp extends StatelessWidget {
         '/hall': (context) => Hall(),
         '/horse': (context) => Horse(),
         '/account': (context) => Account(),
-
       },
-      theme: ThemeData(primarySwatch: MaterialColor(0xFF2596be, colorCodes), scaffoldBackgroundColor: const Color(0xFFeeeee4)),
+      theme: ThemeData(
+          primarySwatch: MaterialColor(0xFF2596be, colorCodes),
+          scaffoldBackgroundColor: const Color(0xFFeeeee4)),
       home: Home(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+
+  final screens = [
+    Hall(),
+    Account(),
+    Horse(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: screens[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Compte',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Chevaux',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xFF2596be),
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

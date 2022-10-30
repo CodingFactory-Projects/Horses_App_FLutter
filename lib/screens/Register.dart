@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_print, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:horses_app/config/mongodb.dart';
+import 'package:horses_app/main.dart';
 import 'package:horses_app/screens/Hall.dart';
 import 'package:horses_app/screens/Login.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
@@ -33,7 +34,8 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(        title: const Text("Register"),
+      appBar: AppBar(
+        title: const Text("Register"),
       ),
       body: SafeArea(
         child: Center(
@@ -108,7 +110,8 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 30),
               ElevatedButton.icon(
                 onPressed: () async {
-                  var queryUser = await MongoDatabase.db.collection("users").find({"username": username}).toList();
+                  var queryUser =
+                      await MongoDatabase.db.collection("users").find({"username": username}).toList();
 
                   var queryEmail = await MongoDatabase.db.collection("users").find({"email": email}).toList();
 
@@ -150,7 +153,8 @@ class _RegisterState extends State<Register> {
                     });
                     MongoDatabase.insertUserId(_id);
 
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Hall()), (Route<dynamic> route) => false);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyHomePage()),
+                        (Route<dynamic> route) => false);
                     clearInputs();
                   }
                 },
@@ -161,8 +165,10 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 10),
               TextButton(
-                onPressed: () =>
-                    {Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (Route<dynamic> route) => false)},
+                onPressed: () => {
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()),
+                      (Route<dynamic> route) => false)
+                },
                 child: const Text("Login"),
               ),
             ],

@@ -1,12 +1,12 @@
 // ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables, avoid_print, non_constant_identifier_names
 
 import 'dart:developer';
-import 'package:flutter/cupertino.dart';
+
 import 'package:horses_app/class/HorseModel.dart';
 import 'package:horses_app/class/RegisterModel.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
 import 'constants.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
   static var db, userCollection, horsesCollection, idUser;
@@ -55,7 +55,6 @@ class MongoDatabase {
     return result;
   }
 
-
   static insertUserId(userId) async {
     idUser = await userId;
     print(idUser);
@@ -73,8 +72,8 @@ class MongoDatabase {
     return data;
   }
 
-  static Future<void> updateUser(var id, String? photo, String? age,
-      String? phoneNumber, String? profilFFE) async {
+  static Future<void> updateUser(
+      var id, String? photo, String? age, String? phoneNumber, String? profilFFE) async {
     var result = await userCollection.findOne({"_id": idUser});
     result["photo"] = photo;
     result["age"] = age;
@@ -101,15 +100,8 @@ class MongoDatabase {
   //
   // }
 
-  static Future<void> updateHorse(
-      var id,
-      String? name,
-      String? photo,
-      String? age,
-      String? dress,
-      String? race,
-      String? gender,
-      String? speciality) async {
+  static Future<void> updateHorse(var id, String? name, String? photo, String? age, String? dress,
+      String? race, String? gender, String? speciality) async {
     var result = await horsesCollection.findOne({"_id": id});
 
     result["name"] = name;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:horses_app/config/mongodb.dart';
-import 'package:horses_app/screens/Nav.dart';
 
 class Account extends StatefulWidget {
   @override
@@ -20,7 +19,6 @@ class _AccountState extends State<Account> {
         automaticallyImplyLeading: false,
         title: const Text("Mon Compte"),
       ),
-      bottomNavigationBar: const NavBar(),
       body: SafeArea(
         child: FutureBuilder(
             future: MongoDatabase.getUserById(),
@@ -37,20 +35,17 @@ class _AccountState extends State<Account> {
                         children: [
                           Image.network(
                             data[0]['photo'],
-                            height: 200.0,
+                            height: 300.0,
                             width: 300.0,
                             fit: BoxFit.cover,
-                            errorBuilder: (BuildContext context, Object exception,
-                                StackTrace? stackTrace) {
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                               return Column(
                                 children: [
                                   Image.asset('lib/assets/images/user.png',
                                       height: 200.0, width: 300.0, fit: BoxFit.cover),
                                   Text('Your image is not available',
                                       style: GoogleFonts.poppins(
-                                          color: Colors.red,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                          color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center),
                                 ],
                               );
@@ -82,8 +77,7 @@ class _AccountState extends State<Account> {
                                 TextFormField(
                                   initialValue: data[0]['photo'],
                                   keyboardType: TextInputType.number,
-                                  onChanged: (value) =>
-                                      {data[0]['photo'] = value},
+                                  onChanged: (value) => {data[0]['photo'] = value},
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Profile Picture',
@@ -93,8 +87,7 @@ class _AccountState extends State<Account> {
                                 TextFormField(
                                   initialValue: data[0]['age'],
                                   keyboardType: TextInputType.number,
-                                  onChanged: (value) =>
-                                      {data[0]['age'] = value},
+                                  onChanged: (value) => {data[0]['age'] = value},
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Age',
@@ -103,8 +96,7 @@ class _AccountState extends State<Account> {
                                 const SizedBox(height: 20),
                                 TextFormField(
                                   initialValue: data[0]['phoneNumber'],
-                                  onChanged: (value) =>
-                                      {data[0]['phoneNumber'] = value},
+                                  onChanged: (value) => {data[0]['phoneNumber'] = value},
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Phone Number',
@@ -113,27 +105,21 @@ class _AccountState extends State<Account> {
                                 const SizedBox(height: 20),
                                 TextFormField(
                                   initialValue: data[0]['profilFFE'],
-                                  onChanged: (value) =>
-                                      {data[0]['profilFFE'] = value},
+                                  onChanged: (value) => {data[0]['profilFFE'] = value},
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Profil FFE',
                                   ),
                                 ),
+                                const SizedBox(height: 20),
                                 ElevatedButton(
                                     style: TextButton.styleFrom(
-                                      textStyle: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge,
+                                      textStyle: Theme.of(context).textTheme.labelLarge,
                                     ),
                                     child: const Text('Confirm'),
                                     onPressed: () async {
-                                      await MongoDatabase.updateUser(
-                                              data[0]['_id'],
-                                              data[0]['photo'],
-                                              data[0]['age'],
-                                              data[0]['phoneNumber'],
-                                              data[0]['profilFFE'])
+                                      await MongoDatabase.updateUser(data[0]['_id'], data[0]['photo'],
+                                              data[0]['age'], data[0]['phoneNumber'], data[0]['profilFFE'])
                                           .whenComplete(() => {
                                                 Navigator.of(context).pop(),
                                               });

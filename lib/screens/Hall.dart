@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:horses_app/config/mongodb.dart';
-import 'Nav.dart';
 
 class Hall extends StatefulWidget {
   Hall({super.key});
@@ -24,7 +23,6 @@ class _HallState extends State<Hall> {
         automaticallyImplyLeading: false,
         title: const Text("Hall"),
       ),
-      bottomNavigationBar: const NavBar(),
       body: SafeArea(
         child: FutureBuilder(
             future: MongoDatabase.getUserById(),
@@ -43,18 +41,14 @@ class _HallState extends State<Hall> {
                           Text("Welcome ${data[0]['username']}"),
                           SizedBox(
                             height: 300,
-                            child: Card(
-                                child:
-                                    Image.network(data[0]['photo'].toString())),
+                            child: Card(child: Image.network(data[0]['photo'].toString())),
                           ),
                           ElevatedButton(
                               onPressed: () => {
-                                MongoDatabase.getUserId(""),
-                                Navigator.pushNamed(
-                                    context, "/login"),
-                              },
+                                    MongoDatabase.getUserId(""),
+                                    Navigator.pushNamed(context, "/login"),
+                                  },
                               child: const Text("Logout")),
-
                         ],
                       )),
                     ],
