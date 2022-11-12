@@ -33,7 +33,7 @@ class _HorseState extends State<Horse> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Chevaux'),
+        title: const Text('Mes Chevaux'),
       ),
       body: SafeArea(
           child: Center(
